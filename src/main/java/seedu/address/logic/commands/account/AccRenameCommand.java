@@ -5,8 +5,8 @@ import seedu.address.logic.commands.CommandResult;
 import seedu.address.logic.commands.exceptions.CommandException;
 import seedu.address.model.Model;
 
-public class RenameCommand extends Command {
-    public RenameCommand() {
+public class AccRenameCommand extends Command {
+    public AccRenameCommand() {
 
     }
 

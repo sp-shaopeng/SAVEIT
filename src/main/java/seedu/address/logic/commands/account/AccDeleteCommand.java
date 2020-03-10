@@ -5,8 +5,8 @@ import seedu.address.logic.commands.CommandResult;
 import seedu.address.logic.commands.exceptions.CommandException;
 import seedu.address.model.Model;
 
-public class AccDelCommand extends Command {
-    public AccDelCommand() {
+public class AccDeleteCommand extends Command {
+    public AccDeleteCommand() {
 
     }
     @Override

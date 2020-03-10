@@ -5,8 +5,8 @@ import seedu.address.logic.commands.CommandResult;
 import seedu.address.logic.commands.exceptions.CommandException;
 import seedu.address.model.Model;
 
-public class CheckoutCommand extends Command {
-    public CheckoutCommand() {
+public class AccCheckoutCommand extends Command {
+    public AccCheckoutCommand() {
 
     }
 

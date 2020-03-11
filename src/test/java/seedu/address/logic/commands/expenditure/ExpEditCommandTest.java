@@ -19,7 +19,6 @@ import org.junit.jupiter.api.Test;
 import seedu.address.commons.core.Messages;
 import seedu.address.commons.core.index.Index;
 import seedu.address.logic.commands.account.ClearCommand;
-import seedu.address.logic.commands.expenditure.EditCommand.EditPersonDescriptor;
 import seedu.address.model.Account;
 import seedu.address.model.Model;
 import seedu.address.model.ModelManager;
@@ -29,24 +28,24 @@ import seedu.address.testutil.EditPersonDescriptorBuilder;
 import seedu.address.testutil.PersonBuilder;
 
 /**
- * Contains integration tests (interaction with the Model, UndoCommand and RedoCommand) and unit tests for EditCommand.
+ * Contains integration tests (interaction with the Model, UndoCommand and RedoCommand) and unit tests for ExpEditCommand.
  */
-public class EditCommandTest {
+public class ExpEditCommandTest {
 
     private Model model = new ModelManager(getTypicalAddressBook(), new UserPrefs());
 
     @Test
     public void execute_allFieldsSpecifiedUnfilteredList_success() {
         Expenditure editedExpenditure = new PersonBuilder().build();
-        EditPersonDescriptor descriptor = new EditPersonDescriptorBuilder(editedExpenditure).build();
-        EditCommand editCommand = new EditCommand(INDEX_FIRST_PERSON, descriptor);
+        ExpEditCommand.EditExpenditureDescriptor descriptor = new EditPersonDescriptorBuilder(editedExpenditure).build();
+        ExpEditCommand expEditCommand = new ExpEditCommand(INDEX_FIRST_PERSON, descriptor);
 
-        String expectedMessage = String.format(EditCommand.MESSAGE_EDIT_PERSON_SUCCESS, editedExpenditure);
+        String expectedMessage = String.format(ExpEditCommand.MESSAGE_EDIT_EXPENDITURE_SUCCESS, editedExpenditure);
 
         Model expectedModel = new ModelManager(new Account(model.getAccount()), new UserPrefs());
         expectedModel.setExpenditure(model.getFilteredPersonList().get(0), editedExpenditure);
 
-        assertCommandSuccess(editCommand, model, expectedMessage, expectedModel);
+        assertCommandSuccess(expEditCommand, model, expectedMessage, expectedModel);
     }
 
     @Test
@@ -58,28 +57,28 @@ public class EditCommandTest {
         Expenditure editedExpenditure = personInList.withInfo(VALID_INFO_BOB).withId(VALID_ID_BOB)
                 .withTags(VALID_TAG_HUSBAND).build();
 
-        EditPersonDescriptor descriptor = new EditPersonDescriptorBuilder().withInfo(VALID_INFO_BOB)
+        ExpEditCommand.EditExpenditureDescriptor descriptor = new EditPersonDescriptorBuilder().withInfo(VALID_INFO_BOB)
                 .withId(VALID_ID_BOB).withTags(VALID_TAG_HUSBAND).build();
-        EditCommand editCommand = new EditCommand(indexLastPerson, descriptor);
+        ExpEditCommand expEditCommand = new ExpEditCommand(indexLastPerson, descriptor);
 
-        String expectedMessage = String.format(EditCommand.MESSAGE_EDIT_PERSON_SUCCESS, editedExpenditure);
+        String expectedMessage = String.format(ExpEditCommand.MESSAGE_EDIT_EXPENDITURE_SUCCESS, editedExpenditure);
 
         Model expectedModel = new ModelManager(new Account(model.getAccount()), new UserPrefs());
         expectedModel.setExpenditure(lastExpenditure, editedExpenditure);
 
-        assertCommandSuccess(editCommand, model, expectedMessage, expectedModel);
+        assertCommandSuccess(expEditCommand, model, expectedMessage, expectedModel);
     }
 
     @Test
     public void execute_noFieldSpecifiedUnfilteredList_success() {
-        EditCommand editCommand = new EditCommand(INDEX_FIRST_PERSON, new EditPersonDescriptor());
+        ExpEditCommand expEditCommand = new ExpEditCommand(INDEX_FIRST_PERSON, new ExpEditCommand.EditExpenditureDescriptor());
         Expenditure editedExpenditure = model.getFilteredPersonList().get(INDEX_FIRST_PERSON.getZeroBased());
 
-        String expectedMessage = String.format(EditCommand.MESSAGE_EDIT_PERSON_SUCCESS, editedExpenditure);
+        String expectedMessage = String.format(ExpEditCommand.MESSAGE_EDIT_EXPENDITURE_SUCCESS, editedExpenditure);
 
         Model expectedModel = new ModelManager(new Account(model.getAccount()), new UserPrefs());
 
-        assertCommandSuccess(editCommand, model, expectedMessage, expectedModel);
+        assertCommandSuccess(expEditCommand, model, expectedMessage, expectedModel);
     }
 
     @Test
@@ -88,24 +87,24 @@ public class EditCommandTest {
 
         Expenditure expenditureInFilteredList = model.getFilteredPersonList().get(INDEX_FIRST_PERSON.getZeroBased());
         Expenditure editedExpenditure = new PersonBuilder(expenditureInFilteredList).withInfo(VALID_INFO_BOB).build();
-        EditCommand editCommand = new EditCommand(INDEX_FIRST_PERSON,
+        ExpEditCommand expEditCommand = new ExpEditCommand(INDEX_FIRST_PERSON,
                 new EditPersonDescriptorBuilder().withInfo(VALID_INFO_BOB).build());
 
-        String expectedMessage = String.format(EditCommand.MESSAGE_EDIT_PERSON_SUCCESS, editedExpenditure);
+        String expectedMessage = String.format(ExpEditCommand.MESSAGE_EDIT_EXPENDITURE_SUCCESS, editedExpenditure);
 
         Model expectedModel = new ModelManager(new Account(model.getAccount()), new UserPrefs());
         expectedModel.setExpenditure(model.getFilteredPersonList().get(0), editedExpenditure);
 
-        assertCommandSuccess(editCommand, model, expectedMessage, expectedModel);
+        assertCommandSuccess(expEditCommand, model, expectedMessage, expectedModel);
     }
 
     @Test
     public void execute_duplicatePersonUnfilteredList_failure() {
         Expenditure firstExpenditure = model.getFilteredPersonList().get(INDEX_FIRST_PERSON.getZeroBased());
-        EditPersonDescriptor descriptor = new EditPersonDescriptorBuilder(firstExpenditure).build();
-        EditCommand editCommand = new EditCommand(INDEX_SECOND_PERSON, descriptor);
+        ExpEditCommand.EditExpenditureDescriptor descriptor = new EditPersonDescriptorBuilder(firstExpenditure).build();
+        ExpEditCommand expEditCommand = new ExpEditCommand(INDEX_SECOND_PERSON, descriptor);
 
-        assertCommandFailure(editCommand, model, EditCommand.MESSAGE_DUPLICATE_PERSON);
+        assertCommandFailure(expEditCommand, model, ExpEditCommand.MESSAGE_DUPLICATE_PERSON);
     }
 
     @Test
@@ -114,19 +113,19 @@ public class EditCommandTest {
 
         // edit expenditure in filtered list into a duplicate in address book
         Expenditure expenditureInList = model.getAccount().getPersonList().get(INDEX_SECOND_PERSON.getZeroBased());
-        EditCommand editCommand = new EditCommand(INDEX_FIRST_PERSON,
+        ExpEditCommand expEditCommand = new ExpEditCommand(INDEX_FIRST_PERSON,
                 new EditPersonDescriptorBuilder(expenditureInList).build());
 
-        assertCommandFailure(editCommand, model, EditCommand.MESSAGE_DUPLICATE_PERSON);
+        assertCommandFailure(expEditCommand, model, ExpEditCommand.MESSAGE_DUPLICATE_PERSON);
     }
 
     @Test
     public void execute_invalidPersonIndexUnfilteredList_failure() {
         Index outOfBoundIndex = Index.fromOneBased(model.getFilteredPersonList().size() + 1);
-        EditPersonDescriptor descriptor = new EditPersonDescriptorBuilder().withInfo(VALID_INFO_BOB).build();
-        EditCommand editCommand = new EditCommand(outOfBoundIndex, descriptor);
+        ExpEditCommand.EditExpenditureDescriptor descriptor = new EditPersonDescriptorBuilder().withInfo(VALID_INFO_BOB).build();
+        ExpEditCommand expEditCommand = new ExpEditCommand(outOfBoundIndex, descriptor);
 
-        assertCommandFailure(editCommand, model, Messages.MESSAGE_INVALID_PERSON_DISPLAYED_INDEX);
+        assertCommandFailure(expEditCommand, model, Messages.MESSAGE_INVALID_PERSON_DISPLAYED_INDEX);
     }
 
     /**
@@ -140,19 +139,19 @@ public class EditCommandTest {
         // ensures that outOfBoundIndex is still in bounds of address book list
         assertTrue(outOfBoundIndex.getZeroBased() < model.getAccount().getPersonList().size());
 
-        EditCommand editCommand = new EditCommand(outOfBoundIndex,
+        ExpEditCommand expEditCommand = new ExpEditCommand(outOfBoundIndex,
                 new EditPersonDescriptorBuilder().withInfo(VALID_INFO_BOB).build());
 
-        assertCommandFailure(editCommand, model, Messages.MESSAGE_INVALID_PERSON_DISPLAYED_INDEX);
+        assertCommandFailure(expEditCommand, model, Messages.MESSAGE_INVALID_PERSON_DISPLAYED_INDEX);
     }
 
     @Test
     public void equals() {
-        final EditCommand standardCommand = new EditCommand(INDEX_FIRST_PERSON, DESC_AMY);
+        final ExpEditCommand standardCommand = new ExpEditCommand(INDEX_FIRST_PERSON, DESC_AMY);
 
         // same values -> returns true
-        EditPersonDescriptor copyDescriptor = new EditPersonDescriptor(DESC_AMY);
-        EditCommand commandWithSameValues = new EditCommand(INDEX_FIRST_PERSON, copyDescriptor);
+        ExpEditCommand.EditExpenditureDescriptor copyDescriptor = new ExpEditCommand.EditExpenditureDescriptor(DESC_AMY);
+        ExpEditCommand commandWithSameValues = new ExpEditCommand(INDEX_FIRST_PERSON, copyDescriptor);
         assertTrue(standardCommand.equals(commandWithSameValues));
 
         // same object -> returns true
@@ -165,10 +164,10 @@ public class EditCommandTest {
         assertFalse(standardCommand.equals(new ClearCommand()));
 
         // different index -> returns false
-        assertFalse(standardCommand.equals(new EditCommand(INDEX_SECOND_PERSON, DESC_AMY)));
+        assertFalse(standardCommand.equals(new ExpEditCommand(INDEX_SECOND_PERSON, DESC_AMY)));
 
         // different descriptor -> returns false
-        assertFalse(standardCommand.equals(new EditCommand(INDEX_FIRST_PERSON, DESC_BOB)));
+        assertFalse(standardCommand.equals(new ExpEditCommand(INDEX_FIRST_PERSON, DESC_BOB)));
     }
 
 }

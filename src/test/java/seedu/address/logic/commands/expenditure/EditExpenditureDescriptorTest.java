@@ -20,7 +20,7 @@ public class EditExpenditureDescriptorTest {
     @Test
     public void equals() {
         // same values -> returns true
-        EditExpenditureDescriptor descriptorWithSameValues = new ExpEditCommand.EditExpenditureDescriptor(DESC_AMY);
+        EditExpenditureDescriptor descriptorWithSameValues = new EditExpenditureDescriptor(DESC_AMY);
         assertTrue(DESC_AMY.equals(descriptorWithSameValues));
 
         // same object -> returns true
@@ -36,7 +36,7 @@ public class EditExpenditureDescriptorTest {
         assertFalse(DESC_AMY.equals(DESC_BOB));
 
         // different info -> returns false
-        ExpEditCommand.EditExpenditureDescriptor editedAmy = new EditPersonDescriptorBuilder(DESC_AMY)
+        EditExpenditureDescriptor editedAmy = new EditPersonDescriptorBuilder(DESC_AMY)
                 .withInfo(VALID_INFO_BOB).build();
         assertFalse(DESC_AMY.equals(editedAmy));
 

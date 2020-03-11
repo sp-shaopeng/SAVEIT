@@ -28,7 +28,8 @@ import seedu.address.testutil.EditPersonDescriptorBuilder;
 import seedu.address.testutil.PersonBuilder;
 
 /**
- * Contains integration tests (interaction with the Model, UndoCommand and RedoCommand) and unit tests for ExpEditCommand.
+ * Contains integration tests (interaction with the Model, UndoCommand and RedoCommand)
+ * and unit tests for ExpEditCommand.
  */
 public class ExpEditCommandTest {
 
@@ -37,7 +38,8 @@ public class ExpEditCommandTest {
     @Test
     public void execute_allFieldsSpecifiedUnfilteredList_success() {
         Expenditure editedExpenditure = new PersonBuilder().build();
-        ExpEditCommand.EditExpenditureDescriptor descriptor = new EditPersonDescriptorBuilder(editedExpenditure).build();
+        ExpEditCommand.EditExpenditureDescriptor descriptor =
+                new EditPersonDescriptorBuilder(editedExpenditure).build();
         ExpEditCommand expEditCommand = new ExpEditCommand(INDEX_FIRST_PERSON, descriptor);
 
         String expectedMessage = String.format(ExpEditCommand.MESSAGE_EDIT_EXPENDITURE_SUCCESS, editedExpenditure);
@@ -72,7 +74,8 @@ public class ExpEditCommandTest {
     @Test
     public void execute_noFieldSpecifiedUnfilteredList_success() {
 
-        ExpEditCommand expEditCommand = new ExpEditCommand(INDEX_FIRST_PERSON, new ExpEditCommand.EditExpenditureDescriptor());
+        ExpEditCommand expEditCommand = new ExpEditCommand(INDEX_FIRST_PERSON,
+                new ExpEditCommand.EditExpenditureDescriptor());
         Expenditure editedExpenditure = model.getFilteredExpenditureList().get(INDEX_FIRST_PERSON.getZeroBased());
 
         String expectedMessage = String.format(ExpEditCommand.MESSAGE_EDIT_EXPENDITURE_SUCCESS, editedExpenditure);
@@ -86,7 +89,8 @@ public class ExpEditCommandTest {
     public void execute_filteredList_success() {
         showPersonAtIndex(model, INDEX_FIRST_PERSON);
 
-        Expenditure expenditureInFilteredList = model.getFilteredExpenditureList().get(INDEX_FIRST_PERSON.getZeroBased());
+        Expenditure expenditureInFilteredList = model.getFilteredExpenditureList()
+                .get(INDEX_FIRST_PERSON.getZeroBased());
         Expenditure editedExpenditure = new PersonBuilder(expenditureInFilteredList).withInfo(VALID_INFO_BOB).build();
         ExpEditCommand expEditCommand = new ExpEditCommand(INDEX_FIRST_PERSON,
                 new EditPersonDescriptorBuilder().withInfo(VALID_INFO_BOB).build());
@@ -122,7 +126,8 @@ public class ExpEditCommandTest {
     @Test
     public void execute_invalidPersonIndexUnfilteredList_failure() {
         Index outOfBoundIndex = Index.fromOneBased(model.getFilteredExpenditureList().size() + 1);
-        ExpEditCommand.EditExpenditureDescriptor descriptor = new EditPersonDescriptorBuilder().withInfo(VALID_INFO_BOB).build();
+        ExpEditCommand.EditExpenditureDescriptor descriptor = new EditPersonDescriptorBuilder()
+                .withInfo(VALID_INFO_BOB).build();
         ExpEditCommand expEditCommand = new ExpEditCommand(outOfBoundIndex, descriptor);
         assertCommandFailure(expEditCommand, model, Messages.MESSAGE_INVALID_EXPENDITURE_DISPLAYED_INDEX);
     }
@@ -149,7 +154,8 @@ public class ExpEditCommandTest {
         final ExpEditCommand standardCommand = new ExpEditCommand(INDEX_FIRST_PERSON, DESC_AMY);
 
         // same values -> returns true
-        ExpEditCommand.EditExpenditureDescriptor copyDescriptor = new ExpEditCommand.EditExpenditureDescriptor(DESC_AMY);
+        ExpEditCommand.EditExpenditureDescriptor copyDescriptor = new ExpEditCommand
+                .EditExpenditureDescriptor(DESC_AMY);
         ExpEditCommand commandWithSameValues = new ExpEditCommand(INDEX_FIRST_PERSON, copyDescriptor);
         assertTrue(standardCommand.equals(commandWithSameValues));
 

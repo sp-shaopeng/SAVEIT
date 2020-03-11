@@ -36,7 +36,8 @@ public class EditExpenditureDescriptorTest {
         assertFalse(DESC_AMY.equals(DESC_BOB));
 
         // different info -> returns false
-        ExpEditCommand.EditExpenditureDescriptor editedAmy = new EditPersonDescriptorBuilder(DESC_AMY).withInfo(VALID_INFO_BOB).build();
+        ExpEditCommand.EditExpenditureDescriptor editedAmy = new EditPersonDescriptorBuilder(DESC_AMY)
+                .withInfo(VALID_INFO_BOB).build();
         assertFalse(DESC_AMY.equals(editedAmy));
 
         // different id -> returns false

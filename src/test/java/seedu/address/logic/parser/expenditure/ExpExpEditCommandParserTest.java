@@ -142,7 +142,8 @@ public class ExpExpEditCommandParserTest {
         // info
         Index targetIndex = INDEX_THIRD_PERSON;
         String userInput = targetIndex.getOneBased() + INFO_DESC_AMY;
-        ExpEditCommand.EditExpenditureDescriptor descriptor = new EditPersonDescriptorBuilder().withInfo(VALID_INFO_AMY).build();
+        ExpEditCommand.EditExpenditureDescriptor descriptor = new EditPersonDescriptorBuilder()
+                .withInfo(VALID_INFO_AMY).build();
         ExpEditCommand expectedCommand = new ExpEditCommand(targetIndex, descriptor);
         assertParseSuccess(parser, userInput, expectedCommand);
 
@@ -192,7 +193,8 @@ public class ExpExpEditCommandParserTest {
         // no other valid values specified
         Index targetIndex = INDEX_FIRST_PERSON;
         String userInput = targetIndex.getOneBased() + INVALID_ID_DESC + ID_DESC_BOB;
-        ExpEditCommand.EditExpenditureDescriptor descriptor = new EditPersonDescriptorBuilder().withId(VALID_ID_BOB).build();
+        ExpEditCommand.EditExpenditureDescriptor descriptor = new EditPersonDescriptorBuilder()
+                .withId(VALID_ID_BOB).build();
         ExpEditCommand expectedCommand = new ExpEditCommand(targetIndex, descriptor);
         assertParseSuccess(parser, userInput, expectedCommand);
 

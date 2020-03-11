@@ -19,6 +19,7 @@ import seedu.address.logic.commands.expenditure.AddCommand;
 
 import seedu.address.logic.commands.expenditure.ExpDeleteCommand;
 import seedu.address.logic.commands.expenditure.ExpEditCommand;
+import seedu.address.logic.commands.expenditure.ExpEditCommand.EditExpenditureDescriptor;
 import seedu.address.logic.commands.expenditure.ExpFindCommand;
 import seedu.address.logic.commands.general.ExitCommand;
 import seedu.address.logic.commands.general.HelpCommand;
@@ -57,7 +58,7 @@ public class TopLevelParserTest {
     @Test
     public void parseCommand_edit() throws Exception {
         Expenditure person = new PersonBuilder().build();
-        ExpEditCommand.EditExpenditureDescriptor descriptor = new EditPersonDescriptorBuilder(person).build();
+        EditExpenditureDescriptor descriptor = new EditPersonDescriptorBuilder(person).build();
         ExpEditCommand command = (ExpEditCommand) parser.parseCommand(ExpEditCommand.COMMAND_WORD + " "
                 + INDEX_FIRST_PERSON.getOneBased() + " " + PersonUtil.getEditPersonDescriptorDetails(descriptor));
         assertEquals(new ExpEditCommand(INDEX_FIRST_PERSON, descriptor), command);

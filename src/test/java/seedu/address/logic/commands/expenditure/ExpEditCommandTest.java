@@ -18,6 +18,7 @@ import org.junit.jupiter.api.Test;
 
 import seedu.address.commons.core.Messages;
 import seedu.address.commons.core.index.Index;
+import seedu.address.logic.commands.expenditure.ExpEditCommand.EditExpenditureDescriptor;
 import seedu.address.logic.commands.account.ClearCommand;
 import seedu.address.model.Account;
 import seedu.address.model.Model;
@@ -38,7 +39,7 @@ public class ExpEditCommandTest {
     @Test
     public void execute_allFieldsSpecifiedUnfilteredList_success() {
         Expenditure editedExpenditure = new PersonBuilder().build();
-        ExpEditCommand.EditExpenditureDescriptor descriptor =
+        EditExpenditureDescriptor descriptor =
                 new EditPersonDescriptorBuilder(editedExpenditure).build();
         ExpEditCommand expEditCommand = new ExpEditCommand(INDEX_FIRST_PERSON, descriptor);
 
@@ -59,7 +60,7 @@ public class ExpEditCommandTest {
         Expenditure editedExpenditure = personInList.withInfo(VALID_INFO_BOB).withId(VALID_ID_BOB)
                 .withTags(VALID_TAG_HUSBAND).build();
 
-        ExpEditCommand.EditExpenditureDescriptor descriptor = new EditPersonDescriptorBuilder().withInfo(VALID_INFO_BOB)
+        EditExpenditureDescriptor descriptor = new EditPersonDescriptorBuilder().withInfo(VALID_INFO_BOB)
                 .withId(VALID_ID_BOB).withTags(VALID_TAG_HUSBAND).build();
         ExpEditCommand expEditCommand = new ExpEditCommand(indexLastPerson, descriptor);
 
@@ -75,7 +76,7 @@ public class ExpEditCommandTest {
     public void execute_noFieldSpecifiedUnfilteredList_success() {
 
         ExpEditCommand expEditCommand = new ExpEditCommand(INDEX_FIRST_PERSON,
-                new ExpEditCommand.EditExpenditureDescriptor());
+                new EditExpenditureDescriptor());
         Expenditure editedExpenditure = model.getFilteredExpenditureList().get(INDEX_FIRST_PERSON.getZeroBased());
 
         String expectedMessage = String.format(ExpEditCommand.MESSAGE_EDIT_EXPENDITURE_SUCCESS, editedExpenditure);
@@ -106,7 +107,7 @@ public class ExpEditCommandTest {
     @Test
     public void execute_duplicatePersonUnfilteredList_failure() {
         Expenditure firstExpenditure = model.getFilteredExpenditureList().get(INDEX_FIRST_PERSON.getZeroBased());
-        ExpEditCommand.EditExpenditureDescriptor descriptor = new EditPersonDescriptorBuilder(firstExpenditure).build();
+        EditExpenditureDescriptor descriptor = new EditPersonDescriptorBuilder(firstExpenditure).build();
         ExpEditCommand expEditCommand = new ExpEditCommand(INDEX_SECOND_PERSON, descriptor);
         assertCommandFailure(expEditCommand, model, ExpEditCommand.MESSAGE_DUPLICATE_PERSON);
     }
@@ -126,7 +127,7 @@ public class ExpEditCommandTest {
     @Test
     public void execute_invalidPersonIndexUnfilteredList_failure() {
         Index outOfBoundIndex = Index.fromOneBased(model.getFilteredExpenditureList().size() + 1);
-        ExpEditCommand.EditExpenditureDescriptor descriptor = new EditPersonDescriptorBuilder()
+        EditExpenditureDescriptor descriptor = new EditPersonDescriptorBuilder()
                 .withInfo(VALID_INFO_BOB).build();
         ExpEditCommand expEditCommand = new ExpEditCommand(outOfBoundIndex, descriptor);
         assertCommandFailure(expEditCommand, model, Messages.MESSAGE_INVALID_EXPENDITURE_DISPLAYED_INDEX);
@@ -154,7 +155,7 @@ public class ExpEditCommandTest {
         final ExpEditCommand standardCommand = new ExpEditCommand(INDEX_FIRST_PERSON, DESC_AMY);
 
         // same values -> returns true
-        ExpEditCommand.EditExpenditureDescriptor copyDescriptor = new ExpEditCommand
+        EditExpenditureDescriptor copyDescriptor = new ExpEditCommand
                 .EditExpenditureDescriptor(DESC_AMY);
         ExpEditCommand commandWithSameValues = new ExpEditCommand(INDEX_FIRST_PERSON, copyDescriptor);
         assertTrue(standardCommand.equals(commandWithSameValues));

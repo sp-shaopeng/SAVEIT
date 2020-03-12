@@ -41,7 +41,6 @@ public class AccLevelParser {
         final String commandWord = matcher.group("commandWord");
         final String arguments = matcher.group("arguments");
         switch (commandWord) {
-            
         case AccAddCommand.COMMAND_WORD:
             return new AccAddCommandParser().parse(arguments);
 

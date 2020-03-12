@@ -9,6 +9,7 @@ public class ExpSetBudgetCommand extends Command {
 
     public static final String COMMAND_WORD = "setbudget";
 
+
     public ExpSetBudgetCommand(){
 
     }

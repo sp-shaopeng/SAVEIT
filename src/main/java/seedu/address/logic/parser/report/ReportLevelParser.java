@@ -7,8 +7,8 @@ import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
 import seedu.address.logic.commands.Command;
-import seedu.address.logic.commands.expenditure.ExportReportCommand;
 import seedu.address.logic.commands.general.HelpCommand;
+import seedu.address.logic.commands.report.ExportReportCommand;
 import seedu.address.logic.commands.report.ViewReportCommand;
 import seedu.address.logic.parser.exceptions.ParseException;
 

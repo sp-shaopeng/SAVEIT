@@ -9,9 +9,7 @@ public class AccCheckoutCommand extends Command {
 
     public static final String COMMAND_WORD = "checkout";
 
-    public AccCheckoutCommand() {
-
-    }
+    public static final String MESSAGE_SUCCESS = "You are now at account: ";
 
     @Override
     public CommandResult execute(Model model) throws CommandException {

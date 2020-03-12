@@ -4,14 +4,18 @@ import seedu.address.logic.commands.Command;
 import seedu.address.logic.commands.CommandResult;
 import seedu.address.logic.commands.exceptions.CommandException;
 import seedu.address.model.Model;
+import seedu.address.model.Report;
 
 public class ViewReportCommand extends Command {
 
-    public static final String COMMAND_WORD = "view" ;
+    public static final String COMMAND_WORD = "view";
 
+    public static final String MESSAGE_SUCCESS = "Report is generated";
 
-    public ViewReportCommand(){
+    private final Report toView;
 
+    public ViewReportCommand(Report toView) {
+        this.toView = toView;
     }
 
     @Override

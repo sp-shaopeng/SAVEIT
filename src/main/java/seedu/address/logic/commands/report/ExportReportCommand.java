@@ -7,6 +7,9 @@ import seedu.address.model.Model;
 
 public class ExportReportCommand extends Command {
 
+    public static final String COMMAND_WORD = "export" ;
+
+
     public ExportReportCommand(){
 
     }

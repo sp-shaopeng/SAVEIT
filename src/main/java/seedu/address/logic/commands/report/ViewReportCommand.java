@@ -7,6 +7,9 @@ import seedu.address.model.Model;
 
 public class ViewReportCommand extends Command {
 
+    public static final String COMMAND_WORD = "view" ;
+
+
     public ViewReportCommand(){
 
     }

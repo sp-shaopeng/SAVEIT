@@ -6,6 +6,9 @@ import seedu.address.logic.commands.exceptions.CommandException;
 import seedu.address.model.Model;
 
 public class AccAddCommand extends Command {
+
+    public static final String COMMAND_WORD = "add";
+
     public AccAddCommand() {
 
     }

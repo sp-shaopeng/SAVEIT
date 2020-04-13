@@ -34,7 +34,7 @@ HiddenOutside ..> Ui
 UiManager .up.|> Ui
 UiManager -left-> MainWindow
 MainWindow *--right-> CalendarView
-MainWindow -down-> ReportWindow
+MainWindow *-down-> ReportWindow
 MainWindow *---> CommandBox
 MainWindow *---> ResultDisplay
 MainWindow *---> ExpenditureListPanel
